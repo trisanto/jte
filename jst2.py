@@ -75,6 +75,18 @@ for j in range(nh):
        dv[k][j] = dtemp
 print(dtemp)
 print(dv)
+v=v+dv;
+print(v);
+
+dw=np.zeros((nh,ni));
+for i in range(ni):
+    dwtemp=0;
+    for j in range(nh):
+        for k in range(nout):
+            dwtemp = lr*error[k]*a[k]*(a[k]-1)*v[k][j] + dwtemp
+        #   print(dwtemp)
+        dw[j][i] = dwtemp*h[j]*(h[j]-1)*p[i]
+print(dw)
 
 
             
