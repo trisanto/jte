@@ -68,12 +68,10 @@ print(a)
 error = target - a
 print(error)
 
-
-
 dtemp = np.zeros(nout);
-#for j in range(nh):
-#    for k in range(nout):
-#        dtemp =
+for j in range(nh):
+    for k in range(nout):
+       dtemp = lr*error[k]*a[m]*(a[m]-1)
 print(dtemp)
 
             
