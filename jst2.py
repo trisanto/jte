@@ -67,12 +67,15 @@ print(a)
 # Menghitung Error
 error = target - a
 print(error)
-
+dv=np.zeros((nout,nh))
 dtemp = np.zeros(nout);
 for j in range(nh):
     for k in range(nout):
-       dtemp = lr*error[k]*a[m]*(a[m]-1)
+       dtemp= lr*error[k]*a[k]*(a[k]-1)*h[j]
+       dv[k][j] = dtemp
 print(dtemp)
+print(dv)
+
 
             
 
