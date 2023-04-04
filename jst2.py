@@ -29,7 +29,7 @@ target = [0.123, 0.456, 0.789]  # target yang ingin dicapai
 p = [4, 3, 2, 1]
 d = np.zeros(nh)
 # -------------------- ITERASI --------------------
-#for k in range(iterasi):
+for k in range(iterasi):
     # 2. ------------- FORWARD ------------------------
     # ----- Hidden Layer -----
     # Menghitung d(j) = p(i) * w(j,i) d = sigma p * w
@@ -40,42 +40,42 @@ d = np.zeros(nh)
    #     d[j] = htemp  # d(j) hasil hitung sigma p*w
    #     print(d[1])
 # Initialize d and h lists
-h = np.zeros(nh)
+    h = np.zeros(nh)
 # Calculate output of hidden layer
-for j in range(nh):
-    htemp = 0
-    for i in range(ni):
-        htemp = p[i]*w[j][i] + htemp
-    d[j] = htemp
-    h[j] = 1 / (1 + np.exp(-d[j]))  # Sigmoid activation function
+    for j in range(nh):
+        htemp = 0
+        for i in range(ni):
+            htemp = p[i]*w[j][i] + htemp
+        d[j] = htemp
+        h[j] = 1 / (1 + np.exp(-d[j]))  # Sigmoid activation function
 
 # Initialize q list
-print(d)
-print(h)
-q = np.zeros(nout)
-a = np.zeros(nout)
+    print(d)
+    print(h)
+    q = np.zeros(nout)
+    a = np.zeros(nout)
 # Calculate output of output layer
-for m in range(nout):
-    qtemp = 0
-    for j in range(nh):
-        qtemp = h[j]*v[m][j] + qtemp
-    q[m] = qtemp
-    a[m] = 1 / (1 + np.exp(-q[m]))
-print(q)
-print(a)
+    for m in range(nout):
+        qtemp = 0
+        for j in range(nh):
+            qtemp = h[j]*v[m][j] + qtemp
+            q[m] = qtemp
+        a[m] = 1 / (1 + np.exp(-q[m]))
+    print(q)
+    print(a)
 
 # Menghitung Error
-error = target - a
-print(error)
+    error = target - a
+    print(error)
 dv=np.zeros((nout,nh))
 dtemp = np.zeros(nout);
 for j in range(nh):
     for k in range(nout):
-       dtemp= lr*error[k]*a[k]*(a[k]-1)*h[j]
+       dtemp= lr*error[k]*a[k]*(1-a[k])*h[j]
        dv[k][j] = dtemp
 print(dtemp)
 print(dv)
-v=v+dv;
+#v=v+dv;
 print(v);
 
 dw=np.zeros((nh,ni));
@@ -83,12 +83,16 @@ for i in range(ni):
     dwtemp=0;
     for j in range(nh):
         for k in range(nout):
-            dwtemp = lr*error[k]*a[k]*(a[k]-1)*v[k][j] + dwtemp
+            dwtemp = lr*error[k]*a[k]*(1-a[k])*v[k][j] + dwtemp
         #   print(dwtemp)
-        dw[j][i] = dwtemp*h[j]*(h[j]-1)*p[i]
+        dw[j][i] = dwtemp*h[j]*(1-h[j])*p[i]
 print(dw)
 
+v=v+dv
+w=w+dw
+print(v)
+print(dw)  
 
-            
-
+print(a);
+print(target)
 
